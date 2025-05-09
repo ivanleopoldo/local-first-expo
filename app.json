@@ -3,7 +3,6 @@
     "name": "local-first-expo",
     "slug": "local-first-expo",
     "version": "1.0.0",
-
     "scheme": "local-first-expo",
     "web": {
       "bundler": "metro",
@@ -21,28 +20,31 @@
     ],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ivanleopoldoc.localfirstexpo"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.ivanleopoldoc.localfirstexpo"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "895efb9d-b536-47c9-b1f6-f51adfba4ce4"
       }
     }
   }
