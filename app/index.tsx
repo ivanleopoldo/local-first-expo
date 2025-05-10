@@ -1,22 +1,41 @@
 import { supabase } from '@/utils/supabase';
-import React from 'react';
-import { View } from 'react-native';
+import { useQuery } from '@tanstack/react-query';
+import { Stack } from 'expo-router';
+import { Alert, SafeAreaView, Text } from 'react-native';
 
 export default function Root() {
-  React.useEffect(() => {
-    supabase
-      .from('todos')
-      .select('*')
-      .then(({ data, error }) => {
-        if (error) {
-          console.error(error.message);
-          throw new Error(error.message);
-        }
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['todos'],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('todos').select('*');
+      if (error) {
+        throw new Error(error.message);
+      }
 
-        if (data) {
-          console.log(data);
-        }
-      });
+      return data;
+    },
   });
-  return <View />;
+
+  if (isLoading) {
+    return (
+      <SafeAreaView>
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    Alert.alert(error.name, error.message);
+  }
+
+  if (data) {
+    console.log(data);
+  }
+
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Home' }} />
+      <SafeAreaView />
+    </>
+  );
 }
